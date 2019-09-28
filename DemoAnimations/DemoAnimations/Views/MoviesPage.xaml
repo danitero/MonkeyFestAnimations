@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:controls="clr-namespace:DemoAnimations.Controls"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:cardControls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+    xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
+    xmlns:cells="clr-namespace:DemoAnimations.Cells"
+    xmlns:utilsEffects="clr-namespace:XFUtils.Effects;assembly=XFUtils"
+    mc:Ignorable="d"
+    Title="Películas"
+    x:Class="DemoAnimations.Views.MoviesPage">
+
+    <Grid>
+        <pancakeview:PancakeView
+            BackgroundGradientStartColor="#E34BFF"
+            BackgroundGradientEndColor="#2B2CD5"
+            BackgroundGradientAngle="60" />
+        <ListView
+            BackgroundColor="Transparent"
+            ItemsSource="{Binding Movies}"
+            ItemTapped="ListView_ItemTapped"
+            HasUnevenRows="True"
+            SeparatorVisibility="None"
+            SelectionMode="None"
+            CachingStrategy="RecycleElement">
+            <ListView.Header>
+                <Grid
+                    Padding="0,60,0,0">
+                    <cards:CoverFlowView
+                        PositionShiftValue="70"
+                        ItemsSource="{Binding Movies}">
+                        <x:Arguments>
+                            <proc:BaseCoverFlowFrontViewProcessor
+                                ScaleFactor="0.75"
+                                OpacityFactor="0.25" />
+                            <proc:BaseCoverFlowBackViewProcessor
+                                ScaleFactor="0.75"
+                                OpacityFactor="0.25" />
+                        </x:Arguments>
+                        <cards:CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <pancakeview:PancakeView
+                                        HasShadow="True"
+                                        Elevation="5"
+                                        CornerRadius="10"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"
+                                        IsClippedToBounds="True"
+                                        HeightRequest="150"
+                                        WidthRequest="250">
+                                        <Image
+                                            Source="{Binding CoverImage}"
+                                            HeightRequest="150"
+                                            WidthRequest="250"
+                                            Aspect="AspectFill" />
+                                    </pancakeview:PancakeView>
+                                </Grid>
+                            </DataTemplate>
+                        </cards:CarouselView.ItemTemplate>
+                    </cards:CoverFlowView>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <cells:MovieCell />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Effects>
+                <utilsEffects:ScrollReporterEffect
+                    ScrollChanged="ScrollReporterEffect_ScrollChanged"/>
+            </ListView.Effects>
+        </ListView>
+    </Grid>
+</ContentPage>
