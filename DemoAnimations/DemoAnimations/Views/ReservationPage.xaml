@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:controls="clr-namespace:DemoAnimations.Controls"
+    mc:Ignorable="d"
+    x:Class="DemoAnimations.Views.ReservationPage"
+    Title="Reservaciones">
+
+
+    <Grid>
+        <Grid></Grid>
+        <pancakeview:PancakeView
+            BackgroundGradientStartColor="#E34BFF"
+            BackgroundGradientEndColor="#2B2CD5"
+            BackgroundGradientAngle="125"/>
+        <ScrollView
+            Padding="0,0,0,90">
+            <Grid
+                Padding="15,60,15,0"
+                RowSpacing="25">
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="Auto" />
+                    <RowDefinition
+                        Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label
+                    FontSize="20"
+                    Text="PANTALLA"
+                    TextColor="White"
+                    HorizontalOptions="Center" />
+                <StackLayout
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    Spacing="4"
+                    HorizontalOptions="Center">
+                    <Image
+                        Source="selected_seat.png"
+                        HeightRequest="15"
+                        WidthRequest="15" />
+                    <Label
+                        Margin="0,0,8,0"
+                        Text="Seleccionado"
+                        TextColor="White"
+                        FontSize="15" />
+                    <Image
+                        Source="available_seat.png"
+                        HeightRequest="15"
+                        WidthRequest="15" />
+                    <Label
+                        Margin="0,0,8,0"
+                        Text="Disponible"
+                        TextColor="White"
+                        FontSize="15" />
+                    <Image
+                        Source="unavailable_seat.png"
+                        HeightRequest="15"
+                        WidthRequest="15" />
+                    <Label
+                        Text="Ocupado"
+                        TextColor="White"
+                        FontSize="15" />
+                </StackLayout>
+                <controls:GridView
+                    Grid.Row="2"
+                    Padding="15,0"
+                    BackgroundColor="Transparent"
+                    ColumnCount="9"
+                    ItemTapped="GridView_ItemTapped"
+                    ItemsSpacing="2"
+                    ItemsSource="{Binding Seats}">
+                    <controls:GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid
+                                    IsVisible="{Binding HasChair}">
+                                    <!--Reservada-->
+                                    <Image
+                                        IsVisible="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
+                                        Source="unavailable_seat.png" />
+                                    <!--Disponible-->
+                                    <Grid
+                                        IsVisible="{Binding IsAvailable}">
+                                        <!--Disponible-->
+                                        <Image
+                                            IsVisible="{Binding IsSelected, Converter={StaticResource ReverseBoolConverter}}"
+                                            Source="available_seat.png" />
+                                        <!--Seleccionada-->
+                                        <Image
+                                            IsVisible="{Binding IsSelected}"
+                                            Source="selected_seat.png" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </controls:GridView.ItemTemplate>
+                </controls:GridView>
+            </Grid>
+        </ScrollView>
+        <Button
+            VerticalOptions="End"
+            Text="CONTINUAR"
+            BackgroundColor="White"
+            CornerRadius="10"
+            Margin="20"
+            Clicked="Button_Clicked"/>
+    </Grid>
+</ContentPage>

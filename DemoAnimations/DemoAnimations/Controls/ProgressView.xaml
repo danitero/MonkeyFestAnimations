@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoAnimations.Controls.ProgressView"
+             VerticalOptions="Center"
+             MinimumHeightRequest="2">
+  <ContentView.Content>
+        <Grid>
+            <BoxView 
+                x:Name="remainingBar"
+                Color="#7B5CC1"
+                VerticalOptions="Center"/>
+            <BoxView
+                x:Name="completeBar"
+                HorizontalOptions="Start"
+                Color="White"
+                VerticalOptions="Center"/>
+            <Label
+                x:Name="percentageText"
+                HorizontalOptions="Center"
+                TextColor="#7B5CC1"/>
+        </Grid>
+  </ContentView.Content>
+</ContentView>
